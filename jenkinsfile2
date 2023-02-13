@@ -1,0 +1,34 @@
+pipeline {
+	agent any
+
+		stages {
+
+			stage('Initialize') {
+				steps {
+					echo 'Initializing.....'
+						sh 'mvn initialize'
+				}
+			}
+
+			stage('Buiding') {
+				steps {
+					echo 'Building.....'
+						sh 'mvn clean package'
+				}
+			}
+			stage('Test') {
+				steps {
+					echo 'Testing.....'
+						sh 'mvn test'
+				}
+			}
+
+			stage('Deploy') {
+				steps {
+					echo 'Deploying....'
+					ansiblePlaybook become: true, becomeUser: 'root', credentialsId: 'ssh-jenkins', inventory: 'hosts.ini', playbook: 'assignment.yml'
+  
+				}
+			}
+		}
+}
