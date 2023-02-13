@@ -26,7 +26,7 @@ pipeline {
 			stage('Deploy') {
 				steps {
 					echo 'Deploying....'
-					ansiblePlaybook become: true, becomeUser: 'root', credentialsId: 'ssh-jenkins', inventory: 'hosts.ini', playbook: 'assignment.yml'
+					ansible-playbook become: true, becomeUser: 'root', credentialsId: 'ssh-jenkins', inventory: 'hosts.ini', playbook: 'assignment.yml'
   
 				}
 			}
